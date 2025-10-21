@@ -1,7 +1,4 @@
-﻿using BuildingBlocks.CQRS;
-using Catalog.API.Models;
-
-namespace Catalog.API.Products.CreateProduct;
+﻿namespace Catalog.API.Products.CreateProduct;
 
 /// <summary>
 /// Represents a command to create a new product with the specified details.
@@ -26,7 +23,7 @@ public record CreateProductResult(Guid Id);
 /// <remarks>This handler processes a <see cref="CreateProductCommand"/> and returns a <see
 /// cref="CreateProductResult"/>  containing the outcome of the operation. It is typically used in a CQRS (Command Query
 /// Responsibility Segregation)  pattern to encapsulate the logic for creating a product.</remarks>
-internal class CreateProductCommandHandler
+internal class CreateProductCommandHandler(IDocumentSession session)
 	: ICommandHandler<CreateProductCommand, CreateProductResult>
 {
 	public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
@@ -44,7 +41,10 @@ internal class CreateProductCommandHandler
 			Price = command.Price
 		};
 
-		return new CreateProductResult(Guid.NewGuid());
+		session.Store(product);
+		await session.SaveChangesAsync(cancellationToken);
+
+		return new CreateProductResult(product.Id);
 	}
 }
 
