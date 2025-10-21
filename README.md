@@ -103,7 +103,27 @@ These interfaces integrate seamlessly with MediatR to provide a consistent CQRS 
 
 **Endpoint:** `POST /products`
 
+**Status Code:** `201 Created`
+
 **Request Body:**
+```json
+{
+    "Name": "New Product A",
+    "Category": ["c1", "c2"],
+    "Description": "Description Product A",
+    "ImageFile": "ImageFile Product A",
+    "Price": 199
+}
+```
+
+**Response:**
+```json
+{
+    "id": "d6ac5f15-dda8-452d-82e6-ef5aee1c3bef"
+}
+```	
+
+	
 
 
 
