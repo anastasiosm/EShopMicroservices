@@ -12,36 +12,7 @@ This project follows a **microservices architecture** with the following key pri
 - **Docker Support** - Containerization for easy deployment and scalability
 
 ## 📂 Project Structure
-EShopMicroservices/
-├── src/
-│   ├── BuildingBlocks/         # Shared libraries and common components
-│   │   └── BuildingBlocks/
-│   │       └── CQRS/           # CQRS abstractions (Commands, Queries, Handlers)
-│   │           ├── ICommand.cs
-│   │           ├── ICommandHandler.cs
-│   │           ├── IQuery.cs
-│   │           └── IQueryHandler.cs
-│   ├── Services/               # Microservices
-│   │   └── Catalog/            # Product catalog service
-│   │       └── Catalog.API/
-│   │           ├── Models/     # Domain models
-│   │           │   └── Product.cs
-│   │           ├── Products/   # Product features (vertical slices)
-│   │           │   └── CreateProduct/
-│   │           │       ├── CreateProductEndpoint.cs
-│   │           │       └── CreateProductHandler.cs
-│   │           ├── Properties/
-│   │           │   └── launchSettings.json
-│   │           ├── Dockerfile
-│   │           ├── GlobalUsing.cs
-│   │           ├── Program.cs
-│   │           ├── appsettings.json
-│   │           └── appsettings.Development.json
-│   ├── .dockerignore
-│   └── eshop-microservices.sln
-├── .gitignore
-├── LICENSE
-└── README.md
+EShopMicroservices/ ├── src/ │   ├── BuildingBlocks/         # Shared libraries and common components │   │   └── BuildingBlocks/ │   │       └── CQRS/           # CQRS abstractions (Commands, Queries, Handlers) │   │           ├── ICommand.cs │   │           ├── ICommandHandler.cs │   │           ├── IQuery.cs │   │           └── IQueryHandler.cs │   ├── Services/               # Microservices │   │   └── Catalog/            # Product catalog service │   │       └── Catalog.API/ │   │           ├── Models/     # Domain models │   │           │   └── Product.cs │   │           ├── Products/   # Product features (vertical slices) │   │           │   └── CreateProduct/ │   │           │       ├── CreateProductEndpoint.cs │   │           │       └── CreateProductHandler.cs │   │           ├── Properties/ │   │           │   └── launchSettings.json │   │           ├── Dockerfile │   │           ├── GlobalUsing.cs │   │           ├── Program.cs │   │           ├── appsettings.json │   │           └── appsettings.Development.json │   ├── .dockerignore │   └── eshop-microservices.sln ├── .gitignore ├── LICENSE └── README.md
 
 ## 🛠️ Technologies & Frameworks
 
