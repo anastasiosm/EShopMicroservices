@@ -14,6 +14,11 @@
 public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price)
 	: ICommand<CreateProductResult>;
 
+/// <summary>
+/// Represents the result of a product creation operation.
+/// </summary>
+/// <remarks>This record encapsulates the unique identifier of the newly created product.</remarks>
+/// <param name="Id"></param>
 public record CreateProductResult(Guid Id);
 
 
@@ -29,9 +34,6 @@ internal class CreateProductCommandHandler(IDocumentSession session)
 	public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
 	{
 		// create Product entity from command object
-		// save to database
-		// return CreateProductResult result
-
 		var product = new Product
 		{
 			Name = command.Name,
@@ -41,9 +43,11 @@ internal class CreateProductCommandHandler(IDocumentSession session)
 			Price = command.Price
 		};
 
+		// save to database
 		session.Store(product);
 		await session.SaveChangesAsync(cancellationToken);
 
+		// return CreateProductResult result
 		return new CreateProductResult(product.Id);
 	}
 }

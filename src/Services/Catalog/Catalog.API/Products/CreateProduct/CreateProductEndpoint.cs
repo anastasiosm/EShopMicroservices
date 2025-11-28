@@ -21,8 +21,9 @@ public record CreateProductRequest(string Name, List<string> Category, string De
 public record CreateProductResponse(Guid Id);
 
 /// <summary>
-/// 
+/// Defines the endpoint for creating a new product in the catalog.
 /// </summary>
+/// <remarks>This class implements the <see cref="ICarterModule"/> interface to define the routing and handling of
 public class CreateProductEndpoint : ICarterModule
 {
 	/// <summary>
@@ -32,20 +33,25 @@ public class CreateProductEndpoint : ICarterModule
 	/// configuration.</remarks>
 	/// <param name="app">The <see cref="IEndpointRouteBuilder"/> used to define and configure the application's endpoints. Cannot be <see
 	/// langword="null"/>.</param>
-	/// <exception cref="NotImplementedException"></exception>
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
-		app.MapPost("/products", 
+		app.MapPost("/products",
+			// we are defining an asynchronous lambda function that handles HTTP POST requests to the "/products" endpoint.  
 			async (CreateProductRequest request, ISender sender) =>
 		{
+			// Inside the lambda function, we are using the Mapster library to adapt (or map) the incoming CreateProductRequest object to a CreateProductCommand object. 
 			var command = request.Adapt<CreateProductCommand>();
 
+			// Send the command to the mediator for processing
 			var result = await sender.Send(command);
 
+			// Map the result to a response
 			var response = result.Adapt<CreateProductResponse>();
 
+			// Return a Created response with the location of the new resource
 			return Results.Created($"/products/{response.Id}", response);
 		})
+		// Configure the endpoint metadata
 		.WithName("CreateProduct")
 		.Produces<CreateProductResponse>(StatusCodes.Status201Created)
 		.ProducesProblem(StatusCodes.Status400BadRequest)
